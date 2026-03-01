@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bot Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>🤖 Bot Control Panel</h1>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs">
+      <button class="tab-btn active" onclick="showTab('settings')">Settings</button>
+      <button class="tab-btn" onclick="showTab('prompt')">Character</button>
+      <button class="tab-btn" onclick="showTab('profiles')">Profiles</button>
+      <button class="tab-btn" onclick="showTab('env')">API Keys</button>
+      <button class="tab-btn" onclick="showTab('memory')">Memory</button>
+    </nav>
+
+    <!-- SETTINGS -->
+    <section id="settings" class="tab active-tab">
+      <h2>⚙ Bot Settings</h2>
+
+      <div class="form-group">
+        <label>Model</label>
+        <input id="model" type="text">
+      </div>
+
+      <div class="form-group">
+        <label>Temperature</label>
+        <input id="temperature" type="number" step="0.05">
+      </div>
+
+      <div class="form-group">
+        <label>Max Memory</label>
+        <input id="maxMemory" type="number">
+      </div>
+
+      <div class="form-group">
+        <label>Cooldown (ms)</label>
+        <input id="cooldownMs" type="number">
+      </div>
+
+      <div class="form-group">
+        <label>Max Tokens</label>
+        <input id="maxTokens" type="number">
+      </div>
+
+      <div class="form-group">
+        <label>Language Mode</label>
+        <select id="languageMode">
+          <option value="auto">Auto Detect</option>
+          <option value="manual">Manual</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Default Language</label>
+        <select id="defaultLanguage">
+          <option value="English">English</option>
+          <option value="French">French</option>
+          <option value="Spanish">Spanish</option>
+          <option value="Arabic">Arabic</option>
+          <option value="Pidgin">Pidgin</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Time Zone</label>
+        <input id="timeZone" type="text">
+      </div>
+
+      <div class="form-group">
+        <label>Location</label>
+        <input id="location" type="text">
+      </div>
+
+      <div class="form-group">
+        <label>Intension Mode</label>
+        <select id="intensionMode">
+          <option value="romantic">Romantic</option>
+          <option value="friendly">Friendly</option>
+          <option value="professional">Professional</option>
+          <option value="flirty">Flirty</option>
+        </select>
+      </div>
+
+      <button class="primary-btn" onclick="saveConfig()">💾 Save Settings</button>
+    </section>
+
+    <!-- CHARACTER -->
+    <section id="prompt" class="tab">
+      <h2>📝 Character Context</h2>
+
+      <div class="form-group">
+        <label>Active Key</label>
+        <input id="activePromptKey" type="text">
+      </div>
+
+      <div class="form-group">
+        <label>Backstory</label>
+        <textarea id="promptText"></textarea>
+      </div>
+
+      <button class="primary-btn" onclick="savePrompt()">💾 Save Character</button>
+    </section>
+
+    <!-- PROFILES -->
+    <section id="profiles" class="tab">
+      <h2>👤 Profiles</h2>
+
+      <div class="form-group">
+        <h3>Bot Bio</h3>
+        <textarea id="botProfile"
+          placeholder="Describe bot personality, tone, behavior..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <h3>Client Bio</h3>
+        <textarea id="userProfile"
+          placeholder="Describe user preferences and relationship context..."></textarea>
+      </div>
+
+      <button class="primary-btn" onclick="saveProfiles()">💾 Save Profiles</button>
+    </section>
+
+    <!-- API KEYS -->
+    <section id="env" class="tab">
+      <h2>🔐 API Keys</h2>
+
+      <div class="form-group">
+        <label>Discord Bot Token</label>
+        <input type="password" id="discordToken">
+      </div>
+
+      <div class="form-group">
+        <label>Groq API Key</label>
+        <input type="password" id="groqKey">
+      </div>
+
+      <button class="primary-btn" onclick="saveEnv()">💾 Save Keys</button>
+    </section>
+
+    <!-- MEMORY -->
+    <section id="memory" class="tab">
+      <h2>🧠 Memory Manager</h2>
+
+      <div class="memory-controls">
+        <button onclick="loadMemory()">🔄 Refresh</button>
+        <button class="danger-btn" onclick="clearAllMemory()">🗑️ Clear All</button>
+      </div>
+
+      <h3>Full memory.json</h3>
+      <textarea id="memoryBox"></textarea>
+
+      <button class="primary-btn" onclick="saveMemory()">💾 Save Memory</button>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

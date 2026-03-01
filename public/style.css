@@ -1,0 +1,138 @@
+/* GENERAL RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* BODY */
+body {
+  background: #0b0b0b;
+  color: white;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* HEADINGS */
+h1 {
+  color: #00ffcc;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  flex-wrap: wrap; /* Wrap on small screens */
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  flex: 1 1 120px; /* flexible width */
+  min-width: 100px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #00ffcc;
+  color: #0b0b0b;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tabs button:hover {
+  opacity: 0.8;
+}
+
+/* SECTIONS */
+section {
+  background: #141414;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(0,255,204,0.2);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* LABELS */
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #00ffcc;
+}
+
+/* INPUTS, SELECTS, TEXTAREAS */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 5px;
+  background: #222;
+  color: white;
+  font-size: 1rem;
+}
+
+textarea {
+  height: 180px;
+  resize: vertical;
+}
+
+/* BUTTONS INSIDE SECTIONS */
+section button {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  background: #00ffcc;
+  color: #0b0b0b;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+section button:hover {
+  opacity: 0.85;
+}
+
+/* STATUS MESSAGE (optional) */
+#statusMessage {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #00ffcc;
+}
+
+/* MEDIA QUERIES FOR RESPONSIVENESS */
+
+/* Tablet */
+@media (min-width: 600px) {
+  body {
+    padding: 30px;
+  }
+
+  section {
+    padding: 25px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .tabs {
+    justify-content: flex-start;
+  }
+
+  section {
+    padding: 30px;
+  }
+
+  input, select, textarea {
+    font-size: 1.05rem;
+  }
+}

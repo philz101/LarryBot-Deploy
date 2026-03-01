@@ -1,0 +1,12 @@
+{
+  "model": "llama-3.3-70b-versatile",
+  "temperature": 0.85,
+  "maxMemory": 10,
+  "cooldownMs": 4000,
+  "maxTokens": 250,
+  "languageMode": "auto",
+  "defaultLanguage": "English",
+  "timeZone": "America/Toronto",
+  "location": "Asia/Tokyo, USA",
+  "intensionMode": "flirty"
+}
