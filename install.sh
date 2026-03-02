@@ -1,45 +1,32 @@
-#!/bin/bash
-# LarryBot Termux Installer
+# --- Create Smart Toggle Shortcut ---
+echo "📱 Creating smart toggle shortcut..."
 
-GREEN="\033[0;32m"
-YELLOW="\033[1;33m"
-RESET="\033[0m"
+SHORTCUT_DIR="$HOME/.shortcuts"
+mkdir -p "$SHORTCUT_DIR"
 
-echo -e "${GREEN}⚡ Starting LarryBot installation...${RESET}"
+cat <<'EOT' > "$SHORTCUT_DIR/LarryBot-Toggle.sh"
+#!/data/data/com.termux/files/usr/bin/bash
 
-# Update packages
-echo -e "${YELLOW}🔄 Updating Termux packages...${RESET}"
-pkg update -y && pkg upgrade -y
+cd $HOME/larrybot
 
-# Install dependencies
-echo -e "${YELLOW}📦 Installing Node.js, git, curl, PM2...${RESET}"
-pkg install -y nodejs git curl
-npm install pm2 -g
+STATUS=$(pm2 list | grep LarryBot | grep online)
 
-# Clone or update repo
-REPO_URL="https://github.com/philz101/LarryBot-Deploy.git"
-DIR_NAME="larrybot"
-
-if [ -d "$DIR_NAME" ]; then
-    echo -e "${YELLOW}📂 Directory $DIR_NAME exists, pulling latest changes...${RESET}"
-    cd "$DIR_NAME" && git pull
+if [ -z "$STATUS" ]; then
+    echo "🚀 Starting LarryBot..."
+    pm2 start bot.js --name LarryBot
+    pm2 start dashboard.js --name LarryDashboard
+    sleep 3
+    termux-open-url http://localhost:5000
+    echo "✅ LarryBot Started!"
 else
-    echo -e "${YELLOW}📂 Cloning repository...${RESET}"
-    git clone "$REPO_URL" "$DIR_NAME"
-    cd "$DIR_NAME"
+    echo "⛔ Stopping LarryBot..."
+    pm2 stop LarryBot
+    pm2 stop LarryDashboard
+    echo "🛑 LarryBot Stopped!"
 fi
+EOT
 
-# Install Node.js dependencies
-echo -e "${YELLOW}📦 Installing dependencies...${RESET}"
-npm install
+chmod +x "$SHORTCUT_DIR/LarryBot-Toggle.sh"
 
-# Start bot & dashboard with PM2
-echo -e "${YELLOW}▶ Starting bot.js and dashboard.js with PM2...${RESET}"
-pm2 start bot.js --name "LarryBot"
-pm2 start dashboard.js --name "LarryDashboard"
-pm2 save
-
-echo -e "${GREEN}✅ Installation complete!${RESET}"
-echo -e "${GREEN}🌐 Dashboard running at: http://localhost:5000${RESET}"
-echo -e "${GREEN}💡 To expose publicly: cloudflared tunnel --url http://localhost:5000${RESET}"
-echo -e "${YELLOW}⚠ Remember to edit .env with your DISCORD_TOKEN and GROQ_API_KEY${RESET}"
+echo "✅ Smart toggle shortcut created!"
+echo "👉 Add the 'Termux:Widget' widget to your home screen."
